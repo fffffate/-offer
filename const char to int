@@ -1,0 +1,54 @@
+// Myatoi.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+#include<limits>
+using namespace std;
+int myAtoi(const char*str)
+{
+	if (str == nullptr)
+		return 0;
+	bool symb = false;
+	while (*str == ' ')
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			symb = true;
+		str++;
+	}
+	int s = 0;
+	while (*str >= '0'&&*str <= '9')
+	{
+		s = 10 * s + *str - '0';
+		str++;
+		if (s < 0)
+		{
+			if (symb == true)
+				s = numeric_limits<int>::min();
+			else
+				s = numeric_limits<int>::max();
+			break;
+
+		}
+	}
+	return s;
+
+}
+
+int main()
+{
+	char*s1 = "12345";
+	char*s2 = "-12345";
+	char*s3 = "    1234";
+	char*s4 = "99999999999999";
+	char*s5 = "-99999999999999999";
+	cout << myAtoi(s1) << endl;
+	cout << myAtoi(s2) << endl;
+	cout << myAtoi(s3) << endl;
+	cout << myAtoi(s4) << endl;
+	cout << myAtoi(s5) << endl;
+    return 0;
+}
+
